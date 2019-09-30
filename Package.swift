@@ -12,7 +12,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/Carthage/Commandant.git", from: "0.15.0"),
         .package(url: "https://github.com/thoughtbot/Curry.git", from: "4.0.1"),
-        .package(url: "https://github.com/natmark/XCAssetsKit", from: "0.0.1"),
+        .package(url: "https://github.com/natmark/XCAssetsKit", from: "0.0.3"),
         .package(url: "https://github.com/jpsim/Yams.git", from: "2.0.0")
     ],
     targets: [
