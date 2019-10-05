@@ -4,6 +4,7 @@ import XCAssetsGenKit
 
 let registry = CommandRegistry<XCAssetsGenKitError>()
 registry.register(VersionCommand())
+registry.register(GenerateCommand())
 
 let helpCommand = HelpCommand(registry: registry)
 registry.register(helpCommand)

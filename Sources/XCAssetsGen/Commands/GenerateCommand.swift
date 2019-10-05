@@ -11,7 +11,6 @@ struct GenerateCommand: CommandProtocol {
     let function = "Generate code from .xcassets"
 
     func run(_ options: GenerateCommand.Options) -> Result<(), GenerateCommand.ClientError> {
-        print(options.path)
         do {
             let config = try Config(url: URL(fileURLWithPath: options.configPath).appendingPathComponent(Config.fileName))
             try Generator.generate(url: URL(fileURLWithPath: options.path), config: config)
