@@ -8,12 +8,21 @@ The swift code generator for asset resources from .xcassets
 ## Installation
 ### Using [CocoaPods](https://cocoapods.org/)
 
+`pod 'XCAssetsGen'`
+
+
 ## Usage
 Simply run:
 ```sh
 $ xcassetsgen generate
 ```
 This will look for a `.xcassetsgen.yml` and generate UIAssets definition from `.xcassets`
+
+If you installed via CocoaPods, you can execute like below
+
+```sh
+$ Pods/XCAssetsGen/xcassetsgen generate
+```
 
 ### Prepare `.xcassets.yml`
 ```yml
