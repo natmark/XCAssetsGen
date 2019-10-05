@@ -12,7 +12,7 @@ struct GenerateCommand: CommandProtocol {
 
     func run(_ options: GenerateCommand.Options) -> Result<(), GenerateCommand.ClientError> {
         do {
-            let config = try Config(url: URL(fileURLWithPath: options.configPath).appendingPathComponent(Config.fileName))
+            let config = try Config(url: URL(fileURLWithPath: options.configPath))
             try Generator.generate(url: URL(fileURLWithPath: options.path), config: config)
         } catch let error {
             return .failure(.unknown(message: error.localizedDescription))
@@ -29,6 +29,6 @@ struct GenerateOptions: OptionsProtocol {
     static func evaluate(_ m: CommandMode) -> Result<GenerateOptions, CommandantError<GenerateOptions.ClientError>> {
         return curry(self.init)
             <*> m <| Option(key: "path", defaultValue: FileManager.default.currentDirectoryPath, usage: "generate project root directory")
-            <*> m <| Option(key: "configPath", defaultValue: FileManager.default.currentDirectoryPath, usage: "path to .xcassetsgen.yml")
+            <*> m <| Option(key: "configPath", defaultValue: FileManager.default.currentDirectoryPath + "/" + Config.fileName, usage: "path to .xcassetsgen.yml")
     }
 }
