@@ -14,7 +14,8 @@ struct GenerateCommand: CommandProtocol {
         do {
             let config = try Config(url: URL(fileURLWithPath: options.configPath).appendingPathComponent(Config.fileName))
             try Generator.generate(url: URL(fileURLWithPath: options.path), config: config)
-        } catch {
+        } catch let error {
+            return .failure(.unknown(message: error.localizedDescription))
         }
         return .success(())
     }

@@ -21,6 +21,7 @@ public struct Generator {
             outputLines.append("}")
 
             for input in image.inputs {
+                print("▶︎ ImageAsset: \(input)")
                 let xcassets = try XCAssets(fileURL: url.appendingPathComponent(input))
                 outputLines += ImageGenerator.generate(xcassets: xcassets)
             }
@@ -33,11 +34,13 @@ public struct Generator {
             outputLines.append("}")
 
             for input in color.inputs {
+                print("▶︎ ColorAsset: \(input)")
                 let xcassets = try XCAssets(fileURL: url.appendingPathComponent(input))
                 outputLines += ColorGenerator.generate(xcassets: xcassets)
             }
 
             try outputLines.joined(separator: "\n").write(to: url.appendingPathComponent(color.output), atomically: true, encoding: .utf8)
+            print("⚙ Generating: \(url.appendingPathComponent(color.output).absoluteString)")
         } else {
             if let color = config.color {
                 var outputLines = [String]()
@@ -53,11 +56,13 @@ public struct Generator {
                 outputLines.append("}")
 
                 for input in color.inputs {
+                    print("▶︎ ColorAsset: \(input)")
                     let xcassets = try XCAssets(fileURL: url.appendingPathComponent(input))
                     outputLines += ColorGenerator.generate(xcassets: xcassets)
                 }
 
                 try outputLines.joined(separator: "\n").write(to: url.appendingPathComponent(color.output), atomically: true, encoding: .utf8)
+                print("⚙ Generating: \(url.appendingPathComponent(color.output).absoluteString)")
             }
             if let image = config.image {
                 var outputLines = [String]()
@@ -73,10 +78,12 @@ public struct Generator {
                 outputLines.append("}")
 
                 for input in image.inputs {
+                    print("▶︎ ImageAsset: \(input)")
                     let xcassets = try XCAssets(fileURL: url.appendingPathComponent(input))
                     outputLines += ImageGenerator.generate(xcassets: xcassets)
                 }
                 try outputLines.joined(separator: "\n").write(to: url.appendingPathComponent(image.output), atomically: true, encoding: .utf8)
+                print("⚙ Generating: \(url.appendingPathComponent(image.output).absoluteString)")
             }
         }
     }

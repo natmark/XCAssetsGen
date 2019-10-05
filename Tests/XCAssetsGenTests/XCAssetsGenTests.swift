@@ -15,20 +15,24 @@ class XCAssetsGenTests: XCTestCase {
         """
         images:
           inputs:
-            - ImageAssets.xcassets
-          output: UIImage+XCAssetsGen.swift
+            - Tests/Resources/ImageAssets.xcassets
+          output: Tests/UIImage+XCAssetsGen.swift
         colors:
           inputs:
-            - ColorAssets.xcassets
-          output: UIColor+XCAssetsGen.swift
+            - Tests/Resources/ColorAssets.xcassets
+          output: Tests/UIColor+XCAssetsGen.swift
         """
 
-        do {
-            let config = try Config(string: configString)
-            try Generator.generate(url: URL(fileURLWithPath: "/Users/atsuya-sato/Desktop/github.com/XCAssetsGen/"), config: config)
-        } catch {
+        let config = try! Config(string: configString)
+        // $(PROJECT_ROOT)/Tests/XCAssetsGenTests/XCAssetsGenTests
+        let projectRoot = URL(fileURLWithPath: #file).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        try! Generator.generate(url: projectRoot, config: config)
 
-        }
+        XCTAssertTrue(projectRoot.appendingPathComponent(config.color!.output).isExist)
+        XCTAssertTrue(projectRoot.appendingPathComponent(config.image!.output).isExist)
+
+        try! FileManager.default.removeItem(at: projectRoot.appendingPathComponent(config.color!.output))
+        try! FileManager.default.removeItem(at: projectRoot.appendingPathComponent(config.image!.output))
     }
 
     func testConfig() {
@@ -37,17 +41,19 @@ class XCAssetsGenTests: XCTestCase {
 images:
   inputs:
     - ImageAssets.xcassets
+    - ImageAssets2.xcassets
   output: UIImage+XCAssetsGen.swift
 colors:
   inputs:
     - ColorAssets.xcassets
   output: UIColor+XCAssetsGen.swift
 """
-        do {
-            let config = try Config(string: configString)
-            print(config)
-        } catch {
-
-        }
+        let config = try? Config(string: configString)
+        XCTAssertNotNil(config?.image)
+        XCTAssertNotNil(config?.color)
+        XCTAssertEqual(config?.image?.inputs, ["ImageAssets.xcassets", "ImageAssets2.xcassets"])
+        XCTAssertEqual(config?.color?.inputs, ["ColorAssets.xcassets"])
+        XCTAssertEqual(config?.image?.output, "UIImage+XCAssetsGen.swift")
+        XCTAssertEqual(config?.color?.output, "UIColor+XCAssetsGen.swift")
     }
 }
