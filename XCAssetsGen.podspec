@@ -10,7 +10,5 @@ The swift code generator for asset resources from .xcassets written in Swift🐧
   s.author           = { 'natmark' => 'natmark0918@gmail.com' }
   s.source           = { :git => 'https://github.com/natmark/XCAssetsGen.git', :tag => s.version.to_s }
   s.preserve_paths = '*'
-  s.source = {
-    http: "https://github.com/natmark/XCAssetsGen/releases/download/#{s.version}/xcassetsgen-#{s.version}.zip"
-  }
+  s.source = { http: "https://github.com/natmark/XCAssetsGen/releases/download/#{s.version}/xcassetsgen-#{s.version}.zip", :flatten => true }
 end
