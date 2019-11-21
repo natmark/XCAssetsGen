@@ -24,6 +24,7 @@ public struct Generator {
 
             if index == (assetSources.count - 1) || assetSource.output != assetSources[index + 1].output {
                 try outputLines.joined(separator: "\n").write(to: url.appendingPathComponent(assetSource.output), atomically: true, encoding: .utf8)
+                outputLines.removeAll()
                 print("⚙ Generating: \(url.appendingPathComponent(assetSource.output).absoluteString)")
             }
         }
