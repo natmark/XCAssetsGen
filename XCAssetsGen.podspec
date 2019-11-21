@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'XCAssetsGen'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'The swift code generator for asset resources from .xcassets'
   s.description      = <<-DESC
 The swift code generator for asset resources from .xcassets written in Swift🐧.
